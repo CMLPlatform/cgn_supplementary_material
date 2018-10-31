@@ -1,10 +1,10 @@
 # cgn_supplementary_material
 
 file: exio_mr_hiot_v3.3.15_2011.
->>>It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited files:
+>It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited files:
 	- Resource extraction per economic activity (RE_ACT)
 	- Resource extraction per final demand category (RE_FD)
-  - Waste supply per economic activity (WS_ACT)
+	- Waste supply per economic activity (WS_ACT)
 	- Waste supply per final demand category (WS_FD)
 	- Stock additions per economic activity (SA_ACT)
 	- Stock additions per final demand category (SA_FD)
