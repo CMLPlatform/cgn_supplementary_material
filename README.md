@@ -22,7 +22,8 @@ Phyton script returns an excel file with:
 
 ## sankey.py
 Phyton script returns Sankey diagram using floweaver software
-**Note: SankeyWidget performs on Jupyter Notebook 
+
+**Note: SankeyWidget performs on Jupyter Notebook** 
 
 ## results.xls 
 > Excel file with results from 'code.py'
