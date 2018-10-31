@@ -1,6 +1,6 @@
 # cgn_supplementary_material
 
-## exio_mr_hiot_v3.3.15_2011.
+## exio_mr_hiot_v3.3.15_2011
 It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited files:
 * Resource extraction per economic activity (RE_ACT)
 * Resource extraction per final demand category (RE_FD)
