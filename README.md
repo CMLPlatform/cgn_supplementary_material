@@ -1,42 +1,42 @@
 # cgn_supplementary_material
 
 file: exio_mr_hiot_v3.3.15_2011.
->It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited files:
-	- Resource extraction per economic activity (RE_ACT)
-	- Resource extraction per final demand category (RE_FD)
-	- Waste supply per economic activity (WS_ACT)
-	- Waste supply per final demand category (WS_FD)
-	- Stock additions per economic activity (SA_ACT)
-	- Stock additions per final demand category (SA_FD)
-	- Waste use per economic activity (WU_ACT)
-	- Stock depletion per final demand category (SD)
-	- Emissions per economic activity (EM_ACT)
-	- Emissions per final demand category (EM_FD)
-	- Population per country (POP)
+> It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited files:
+	Resource extraction per economic activity (RE_ACT)
+	Resource extraction per final demand category (RE_FD)
+	Waste supply per economic activity (WS_ACT)
+	Waste supply per final demand category (WS_FD)
+	Stock additions per economic activity (SA_ACT)
+	Stock additions per final demand category (SA_FD)
+	Waste use per economic activity (WU_ACT)
+	Stock depletion per final demand category (SD)
+	Emissions per economic activity (EM_ACT)
+	Emissions per final demand category (EM_FD)
+	Population per country (POP)
 
 file: code.py
->>>Phyton script returns an excel file with:
-	- Results of global circularity gap per material category (data_glo)
-	- Results of circularity gap per country (data_cou)
-	- Results of circularity gap per aggregated region (data_reg) 
+> Phyton script returns an excel file with:
+	Results of global circularity gap per material category (data_glo)
+	Results of circularity gap per country (data_cou)
+	Results of circularity gap per aggregated region (data_reg) 
 
 file: sankey.py
->>>Phyton script returns Sankey diagram using floweaver software
+> Phyton script returns Sankey diagram using floweaver software
 Note: SankeyWidget performs on Jupyter Notebook 
 
 file: results.xls 
->>>Excel file with results from 'code.py'
+> Excel file with results from 'code.py'
 
 file: analysis.xls
->>>It includes the circularity gap analysis and figures based on 'results.xlsb' source data  
+> It includes the circularity gap analysis and figures based on 'results.xlsb' source data  
 
 file: exio_class.xls
->>>It includes material group classificafication used in Sankey diagram from EXIOBASE v.3.3.15 categories  
+> It includes material group classificafication used in Sankey diagram from EXIOBASE v.3.3.15 categories  
 
 file: wb_to_exio_cov.xls
->>>Excel file coverts datasets from World Bank Statistics  
+> Excel file coverts datasets from World Bank Statistics  
 
 file: procedure.docx
->>>Word file contains:
-	- Procedure to import EXIOBASE v3.3.15, use of 'code.py', 'sankey.py', 'results.xls' and 'analysis.xls' 
-	- A comparison between data from EXIOBASE v3.3.15 and other sources of material flow accounts   
+> Word file contains:
+	Procedure to import EXIOBASE v3.3.15, use of 'code.py', 'sankey.py', 'results.xls' and 'analysis.xls' 
+	A comparison between data from EXIOBASE v3.3.15 and other sources of material flow accounts   
