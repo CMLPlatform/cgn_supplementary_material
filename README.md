@@ -26,16 +26,16 @@ Phyton script returns Sankey diagram using floweaver software
 **Note: SankeyWidget performs on Jupyter Notebook** 
 
 ## results.xls 
-> Excel file with results from 'code.py'
+Excel file with results from ***code.py***
 
 ## analysis.xls
-It includes the circularity gap analysis and figures based on 'results.xlsb' source data  
+It includes the circularity gap analysis and figures based on ***results.xlsb*** source data  
 
 ## exio_class.xls
 It includes material group classificafication used in Sankey diagram from EXIOBASE v.3.3.15 categories  
 
 ## wb_to_exio_cov.xls
-Excel file coverts datasets from World Bank Statistics  
+Excel file coverts datasets from World Bank Statistics to EXIOBASE classification  
 
 ## procedure.docx
 Word file contains:
