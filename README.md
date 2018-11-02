@@ -39,5 +39,5 @@ Excel file coverts datasets from World Bank Statistics to EXIOBASE classificatio
 
 ## procedure.docx
 Word file contains:
-* Procedure to import EXIOBASE v3.3.15, use of 'code.py', 'sankey.py', 'results.xls' and 'analysis.xls' 
+* Procedure to import EXIOBASE v3.3.15, use of 'cgn_main.py', 'cgn_sankey.py', 'results.xls' and 'analysis.xls' 
 * A comparison between data from EXIOBASE v3.3.15 and other sources of material flow accounts   
