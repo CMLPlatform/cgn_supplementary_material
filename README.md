@@ -14,7 +14,7 @@ It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited fil
 * Emissions per final demand category (EM_FD)
 * Population per country (POP)
 
-## code.py
+## cgn_main.py
 Phyton script returns an excel file with:
 * Results of global circularity gap per material category (data_glo)
 * Results of circularity gap per country (data_cou)
