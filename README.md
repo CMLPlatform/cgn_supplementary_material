@@ -20,7 +20,7 @@ Phyton script returns an excel file with:
 * Results of circularity gap per country (data_cou)
 * Results of circularity gap per aggregated region (data_reg) 
 
-## sankey.py
+## cgn_sankey.py
 Phyton script returns Sankey diagram using floweaver software
 
 **Note: SankeyWidget performs on Jupyter Notebook** 
