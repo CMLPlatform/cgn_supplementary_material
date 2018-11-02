@@ -15,10 +15,10 @@ It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited fil
 * Population per country (POP)
 
 ## cgn_main.py
-Phyton script returns an excel file with:
-* Results of global circularity gap per material category (data_glo)
-* Results of circularity gap per country (data_cou)
-* Results of circularity gap per aggregated region (data_reg) 
+Phyton script returns the results of:
+* Global circularity gap per material category (data_glo)
+* Circularity gap per country (data_cou)
+* Circularity gap per aggregated region (data_reg) 
 
 ## cgn_sankey.py
 Phyton script returns Sankey diagram using floweaver software
