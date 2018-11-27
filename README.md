@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1483549.svg)](https://doi.org/10.5281/zenodo.1483549)
+
 # cgn_supplementary_material
 
 ## exio_mr_hiot_v3.3.15_2011
