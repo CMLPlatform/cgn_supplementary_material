@@ -15,7 +15,7 @@ Software version: Phyton 3.6.
 
 Created on Thu Sep 20 11:53:34 2018
 
-Updated on Fri Nov 02 11:59:00 2018
+Updated on Thu May 02 15:54:00 2019
 
 @author: aguilarga
 """
@@ -50,26 +50,41 @@ def main():
                   header=[0, 1], decimal=',')  # emissions matrix
     EM_FD = read_csv(path + '\EM_FD.txt', sep='\t', index_col=[0, 1, 2],
                      header=[0, 1], decimal=',')  # emissions from FD matrix
+    Z = read_csv(path + '\HIOT.txt', sep = '\t', index_col = [0,1,2],
+                  header = [0,1], decimal = ',')  # intermediate demand matrix
+    FD = read_csv(path + '\FD.txt', sep = '\t', index_col = [0,1,2],
+                  header = [0,1], decimal = ',')  # final demand matrix
     pop = read_csv(path + '\POP.txt', sep='\t', index_col=[0],
                    decimal=',')  # population vector
+    gdp = read_csv(path + '\GDP_CAP_PPP.txt', sep='\t', index_col=[0],
+                   decimal=',')  # GDP per capita (PPP) vector
     # CIRCULARITY GAP GLOBAL
-    cg_world = cal_cg_world(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD,
+    cg_glo = cal_cg_glo(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD,
                             EM, EM_FD)
     # CIRCULARITY GAP PER COUNTRY/REGION
-    country_lab = WS_FD.columns.levels[0][WS_FD.columns.labels[0][0::6]]
-    val_lab = ['Resource extraction (t)', 'Waste generation (t)',
-               'Stock depletion (t)',
-               'Waste recovery (t)', 'Circularity gap (Gt)',
-               'Stock additions (t)',
-               'Dissipative emissions (t)', 'Population (pc)']
+    country_lab = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI',
+                   'FR', 'GR', 'HU', 'HR', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT',
+                   'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB', 'NO', 'CH',
+                   'WE', 'TR', 'US', 'CA', 'CN', 'RU', 'IN', 'AU', 'JP', 'ZA', 
+                   'WF', 'WM', 'BR', 'MX', 'WL', 'KR', 'ID', 'WA']
+    val_lab = ['Resource Extraction (tonnes)',
+               'Stock Additions (tonnes)',
+               'Waste Generation (tonnes)',
+               'Stock Depletion (tonnes)',
+               'Waste recovery (tonnes)', 
+               'Circularity Gap (tonnes)',
+               'Dissipative emissions from I&C to DPO (tonnes)', 
+               'Population (cap)',
+               'GDP per capita PPP (GDP/cap-PPP)',
+               'Material Imports (tonnes)']
     emp = []
     for i in country_lab:
-        df = cal_cg_country(i, RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD,
-                            EM, EM_FD, pop)
+        df = cal_cg_cou(i, RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD,
+                            EM, EM_FD, Z, FD, pop, gdp)
         emp.append(df)
-    cg_per_country = pd.DataFrame(emp, index=country_lab, columns=val_lab)
-    cg_per_region = region_agg(cg_per_country)
-    return cg_world, cg_per_country, cg_per_region
+    cg_cou = pd.DataFrame(emp, index=country_lab, columns=val_lab)
+    cg_reg = region_agg(cg_cou)
+    return cg_glo, cg_cou, cg_reg
 
 
 # FUNCTIONS
@@ -77,7 +92,7 @@ def main():
 # CIRCULARITY GAP GLOBAL FUNCTION
 
 
-def cal_cg_world(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD):
+def cal_cg_glo(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD):
     # INDEX
     rf_ind = np.arange(24, 33)  # fossil fuels extraction
     rb_ind = [0, 3, 8, 12, 14, 33]  # biomass extraction
@@ -157,7 +172,7 @@ def cal_cg_world(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD):
            EM_FD.iloc[em_ind, :].sum().sum())  # metal emissions
     emn = (EM.iloc[en_ind, :].sum().sum() +
            EM_FD.iloc[en_ind, :].sum().sum())  # nonmet mineral emissions
-    # MATERIAL DISPERSED AND UNREGISTERED WASTE
+    # MATERIAL DISPERSED AND UNREGISTERED WASTE FROM I&C TO DPO
     mdf = (ref + wrf) - (wsf + saf + emf)  # fossil fuels dispersed
     mdb = (reb + wrb) - (wsb + sab + emb)  # biomass dispersed
     mdm = (rem + wrm) - (wsm + sam + emm)  # metal dispersed
@@ -182,14 +197,14 @@ def cal_cg_world(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD):
                             wrf, wrb, wrm, wrn])
     results = results/1E09
     results.index = ['re_fossil', 're_biomass', 're_metal',
-                     're_non-metal', 'dpo_fossil', 'dpo_biomass',
-                     'dpo_metal', 'dpo_non-metal', 'w_fossil',
+                     're_non-metal', 'b_i&c_fossil', 'b_i&c_biomass',
+                     'b_i&c_metal', 'b__i&c_non-metal', 'w_fossil',
                      'w_biomass', 'w_metal', 'w_non-metal',
                      's_add_fossil', 's_add_biomass', 's_add_metal',
                      's_add_non-metal', 's_dep_fossil',
                      's_dep_biomass', 's_dep_metal',
-                     's_dep_non-metal', 'gap_fossil', 'gap_biomass',
-                     'gap_metal', 'gap_non-metal', 'w_rec_fossil',
+                     's_dep_non-metal', 'gap_fossil', 'c_gap_biomass',
+                     'c_gap_metal', 'c_gap_non-metal', 'w_rec_fossil',
                      'w_rec_biomass', 'w_rec_metal',
                      'w_rec_non-metal']
     results.columns = ['Gigatonnes (Gt)']
@@ -199,8 +214,8 @@ def cal_cg_world(RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD):
 # CIRCULARITY GAP PER COUNTRY FUNCTION
 
 
-def cal_cg_country(c_name, RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD,
-                   pop):
+def cal_cg_cou(c_name, RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD,
+               Z, FD, pop, gdp):
     # INDEX
     r_ind = np.arange(0, 35)  # resource categories index
     w_ind = np.arange(0, 17)  # waste categories index
@@ -208,6 +223,7 @@ def cal_cg_country(c_name, RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD,
               78, 80, 82, 93, 94, 101, 114, 146, 147,
               148, 149, 150]  # recovery activites index
     co2 = 44  # molar mass carbon dioxide
+    co = 28  # molar mass carbon monoxide
     c = 12  # molar mass carbon
     # SETTIINGS
     RE = RE.iloc[r_ind, :]  # resource excluding oxigen and water
@@ -236,12 +252,36 @@ def cal_cg_country(c_name, RE, RE_FD, WS, WS_FD, WU, SA, SA_FD, SD, EM, EM_FD,
     # EMISSIONS CALCULATION
     em = (EM.loc[:, c_name].sum().sum() +
           EM_FD.loc[:, c_name].sum().sum())
+    
+    # DISSIPATIVE EMISSIONS
+    em = (EM.loc[:, c_name].sum(1) +
+          EM_FD.loc[:, c_name].sum(1))
+    em[0] = em[0]*c/co2  # convert CO2 mass in C mass
+    em[10] = em[10]*c/co  # covert CO mass in C mass
+    em[64] = em[64]*c/co2  # convert CO2 mass in C mass
+    em = em.sum()
+    # MATERIAL DISPERSED AND UNREGISTERED WASTE
+    md = (re + wr) - (ws + sa + em)  # material dispersed and unreg. waste
+    # MATERIAL FLOW FROM I&C TO DPO
+    bi = em + md  # dissipative emissions and unregsitered waste from I&C
     # CIRCULARITY GAP CALCULATION
     cg = ws + sd - wr
+    # IMPORTED MATERIAL CALCULATION
+    z_ = Z.xs('tonnes', level=2, drop_level=False)
+    z_tot = z_.loc[:, c_name]
+    z_dom = z_tot.loc[c_name, :]
+    m_i = z_tot.sum().sum() - z_dom.sum().sum()
+    y_ = FD.xs('tonnes', level=2, drop_level=False)
+    y_tot = y_.loc[:, c_name]
+    y_dom = y_tot.loc[c_name, :]
+    m_y = y_tot.sum().sum() - y_dom.sum().sum()
+    m = m_i + m_y
     # POPULATION CALCULATION
     pp = pop.loc[c_name].sum()
+    # GDP PER CAPITA CALCULATION
+    gdp = gdp.loc[c_name].sum()
     # RESULTS
-    results = [re, ws, sd, wr, cg, sa, em, pp]
+    results = [re, sa, ws, sd, wr, cg, bi, pp, gdp, m]
     return results
 
 
@@ -252,8 +292,8 @@ def region_agg(df):
     world = pd.DataFrame(df.sum(0), columns=['World'])
     eu_index = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI',
                 'FR', 'GR', 'HU', 'HR', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT',
-                'NL', ' PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB', 'NO', 'CH',
-                'WE']
+                'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB', 'NO', 'CH',
+                'WE', 'TR']
     europe = pd.DataFrame(df.loc[eu_index, :].sum(0), columns=['Europe'])
     na_index = ['US', 'CA']
     na = pd.DataFrame(df.loc[na_index, :].sum(0), columns=['North America'])
@@ -269,7 +309,7 @@ def region_agg(df):
     jp.columns = ['Japan']
     af_index = ['ZA', 'WF']
     af = pd.DataFrame(df.loc[af_index, :].sum(0), columns=['Africa'])
-    me_index = ['TR', 'WM']
+    me_index = ['WM']
     me = pd.DataFrame(df.loc[me_index, :].sum(0), columns=['Middle East'])
     lam_index = ['BR', 'MX', 'WL']
     lam = pd.DataFrame(df.loc[lam_index, :].sum(0), columns=['Latin America'])
@@ -277,18 +317,21 @@ def region_agg(df):
     ap = pd.DataFrame(df.loc[ap_index, :].sum(0), columns=['Asia and Pacific'])
     df_agg = pd.concat([world, europe, na, cn, ru, india, au, jp, lam, me, af,
                         ap], axis=1)
-    return df_agg.T
+    df_agg = df_agg.T
+    df_agg.iloc[0, 9] = 0  # Note: There are not imports from the World
+                            # Then, World's imports = 0
+    return df_agg
 
 
 # SAVE RESULTS FUNCTION
 
 
 def save_res():
-    cg_world, cg_per_country, cg_per_region = main()
+    cg_glo, cg_cou, cg_reg = main()
     writer = ExcelWriter("results_" +
                          datetime.now().strftime('%Y%m%d') + ".xlsx")
-    cg_world.to_excel(writer, 'data_glo')
-    cg_per_country.to_excel(writer, 'data_cou')
-    cg_per_region.to_excel(writer, 'data_reg')
+    cg_glo.to_excel(writer, 'data_glo')
+    cg_cou.to_excel(writer, 'data_cou')
+    cg_reg.to_excel(writer, 'data_reg')
     writer.save()
     return
