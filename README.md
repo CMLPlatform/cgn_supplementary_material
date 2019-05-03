@@ -18,7 +18,7 @@ It includes extention accounts from EXIOBASE v.3.3.15 coverted tab-delimited fil
 * Population per country (POP)
 * GDP-PPP per capita, per country (GDP_CAP_PPP)
 
-***Note***: Intermediate demand matrix (HIOT) is not included in this folder. For running ***cgn_main().py***, HIOT should be downloaded from EXIOBASE website (http://www.exiobase.eu/), and following the import procedure in ***procedure.docx***
+***Note***: Intermediate demand matrix (HIOT) is not included in this folder. For running ***cgn_main.py***, HIOT should be downloaded from EXIOBASE website (http://www.exiobase.eu/), and following the import procedure in ***procedure.docx***
 
 ## cgn_main.py
 Phyton script returns the results of:
