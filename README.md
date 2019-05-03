@@ -39,7 +39,7 @@ It includes the circularity gap analysis and figures based on ***results.xlsb***
 
 ## exio_class.xls
 It includes from EXIOBASE v.3.3.15:
-*List of income groups per counrty based on World Bank Atlas method (https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups)
+* List of income groups per counrty based on World Bank Atlas method (https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups)
 * Resource extraction classification
 * Emission classification
 * Waste/stock additions classification
