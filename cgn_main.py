@@ -66,7 +66,7 @@ def main():
 
     If file not included:
     
-        1) Download download ‘EXIOBASE 3.3.15-HSUT-2011’ from 
+        1) Download ‘EXIOBASE 3.3.15-HSUT-2011’ from 
         EXIOBASE website (http://www.exiobase.eu/)
     
         2) Follow the import data procedure from 'procedure' Word document in
