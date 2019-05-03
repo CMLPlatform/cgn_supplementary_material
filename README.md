@@ -29,7 +29,7 @@ Phyton script returns Sankey diagram using floweaver software
 **Note: SankeyWidget performs on Jupyter Notebook** 
 
 ## results.xls 
-Excel file with results from ***code.py***
+Excel file with results from ***cgn_main().py***
 
 ## analysis.xls
 It includes the circularity gap analysis and figures based on ***results.xlsb*** source data  
