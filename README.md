@@ -38,7 +38,13 @@ Excel file with results from ***cgn_main().py***
 It includes the circularity gap analysis and figures based on ***results.xlsb*** source data  
 
 ## exio_class.xls
-It includes material group classificafication used in Sankey diagram from EXIOBASE v.3.3.15 categories  
+It includes from EXIOBASE v.3.3.15:
+*List of income groups per counrty based on World Bank Atlas method (https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups)
+* Resource extraction classification
+* Emission classification
+* Waste/stock additions classification
+* List of all economic sectors in EXIOBASE
+* List of economic activities related to waste recovery in EXIOBASE
 
 ## wb_to_exio_cov.xls
 Excel file coverts datasets from World Bank Statistics to EXIOBASE classification  
