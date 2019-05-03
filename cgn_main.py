@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 """
 This code retrieves the calculation of circularity gap per country
+
 in an Excel file
 
 The Excel file contains three spreadsheet, as:
+
     1) cg_world = global input-output flows
       (also used for creating Sankey diagram)
+
     2) cg_per_country = results of material flows per country
+
     3) cg_per_region = results of material flows per aggregated region
 
 Database: EXIOBASE MR-HIOT v.3.3.15.
@@ -15,9 +19,31 @@ Software version: Phyton 3.6.
 
 Created on Thu Sep 20 11:53:34 2018
 
-Updated on Thu May 02 15:54:00 2019
+Updated on Thu May 03 11:54:00 2019
 
 @author: aguilarga
+
+Note: Before runinng main() be sure to have all files 
+
+in 'exio_mr_hiot_v3.3.15_2011' folder, wich are: RE_ACT.txt, RE_FD.txt,
+
+WS_ACT.txt, WS_FD.txt; EM_ACT.txt, EM_FD.txt, WU_ACT, SA_ACT, SA_FD.txt,
+
+SD.txt, HIOT.txt, FD.txt, POP.txt, GDP_CAP_PPP.txt
+
+If file not included:
+    
+    1) Download download ‘EXIOBASE 3.3.15-HSUT-2011’ from 
+    EXIOBASE website (http://www.exiobase.eu/)
+    
+    2) Follow the import data procedure from 'procedure' Word document in
+    https://github.com/aguilarga/cgn_supplementary_material.git
+
+This procedure is particulary needed for HIOT.txt becuase 
+
+the file size (more than 250 MB) does not allow to upload it 
+
+directly to the github repository 
 """
 
 import pandas as pd
@@ -28,7 +54,32 @@ from datetime import datetime
 
 
 def main():
-    # CALCULATING CIRCULARITY GAP
+
+    """
+    Note: Before runinng main() be sure to have all files 
+
+    in 'exio_mr_hiot_v3.3.15_2011' folder, wich are: RE_ACT.txt, RE_FD.txt,
+
+    WS_ACT.txt, WS_FD.txt; EM_ACT.txt, EM_FD.txt, WU_ACT, SA_ACT, SA_FD.txt,
+
+    SD.txt, HIOT.txt, FD.txt, POP.txt, GDP_CAP_PPP.txt
+
+    If file not included:
+    
+        1) Download download ‘EXIOBASE 3.3.15-HSUT-2011’ from 
+        EXIOBASE website (http://www.exiobase.eu/)
+    
+        2) Follow the import data procedure from 'procedure' Word document in
+        https://github.com/aguilarga/cgn_supplementary_material.git
+
+    This procedure is particulary needed for HIOT.txt becuase 
+
+    the file size (more than 250 MB) does not allow to upload it 
+
+    directly to the github repository 
+    """
+
+     # CALCULATING CIRCULARITY GAP
     path = 'exio_mr_hiot_v3.3.15_2011'
     RE = read_csv(path + '\RE_ACT.txt', sep='\t', index_col=[0, 1],
                   header=[0, 1], decimal=',')  # resource extraction matrix
